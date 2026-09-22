@@ -16,3 +16,6 @@ __pycache__/
 Thumbs.db
 # 忽略结果文件夹
 ResultPlot/
+
+# Independent Overleaf repository
+/overleaf_ntn_paper/
