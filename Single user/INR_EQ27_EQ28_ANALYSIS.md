@@ -18,10 +18,10 @@
 
 ## 2. 统一符号、模型与原图参数
 
-下文为简化式子，将目标信道单位化；这不改变零陷波束：
+下文将目标信道单位化，并统一固定整体相位：若 $h_1^Hh_0\ne0$，取 $\phi=\arg(h_1^Hh_0)$，否则取 $\phi=0$。这个约定只改变波束的整体相位，不改变 INR，后文始终使用同一个 $u$：
 
 $$
-N=N_t\ge2,\quad u=\frac{h_0}{\|h_0\|},\quad h=h_1,\quad
+N=N_t\ge2,\quad u=e^{-j\phi}\frac{h_0}{\|h_0\|},\quad h=h_1,\quad
 v\sim\mathcal{CN}(0,\sigma^2I),\quad
 \widehat h=h+v,\quad \sigma^2=\frac{N_0}{\mathcal E_r}.
 $$
@@ -129,7 +129,7 @@ $$
 
 $$
 C=u^Hh,\quad d=u^Hv,\quad t=h^Hv,\quad q=\|v\|^2,
-\quad T=\|\widehat h\|^2=H+t+t^*+q.
+\quad T_{\rm h}=\|\widehat h\|^2=H+t+t^*+q.
 $$
 
 公式 (31) 的括号可精确写成
@@ -144,7 +144,7 @@ $$
 在固定 $N$、固定 $r<1$、高训练 SNR 下，保留关于估计误差的一阶项：
 
 $$
-\frac1T
+\frac1{T_{\rm h}}
 =\frac1H-\frac{t+t^*}{H^2}
 +\text{二阶及更高阶项}.
 $$
@@ -176,7 +176,7 @@ $$
 
 ### 4.2 提前冻结分母得到的随机项
 
-如果先按照 (32) 把 $T$ 换成 $\mathbb ET=H+N\sigma^2$，那么在高 SNR 下，随机一阶项变为
+如果先按照 (32) 把 $T_{\rm h}$ 换成 $\mathbb ET_{\rm h}=H+N\sigma^2$，那么在高 SNR 下，随机一阶项变为
 
 $$
 F_{\mathrm{fr}}\approx-d-\frac{Ct^*}{H}.
@@ -202,7 +202,7 @@ $$
 
 它不是可随意忽略的高阶项：其标准量级与 $d$、$Ct^*/H$ 相同。分母的**相对**扰动小，不代表最终两个大项相减后的**残余**误差小。
 
-甚至在高 SNR 时，$T$ 越接近 $H$，原表达式里两个大项的抵消也越精确；只保留随机分子的扰动、删掉随机分母的对应扰动，恰恰会污染需要计算的噪声底。
+甚至在高 SNR 时，$T_{\rm h}$ 越接近 $H$，原表达式里两个大项的抵消也越精确；只保留随机分子的扰动、删掉随机分母的对应扰动，恰恰会污染需要计算的噪声底。
 
 ### 4.3 这也是渐近展开不一致的问题
 
@@ -215,8 +215,8 @@ $$
 正文定义
 
 $$
-V_+=\frac{a+b^*}{m},\qquad
-m=H+N\sigma^2,
+V_+=\frac{a+b^*}{M},\qquad
+M=H+N\sigma^2,
 $$
 
 其中使用原来的未归一化 $h_0$：
@@ -246,7 +246,7 @@ $$
 
 $$
 \mathbb E|V_+|^2
-=\frac{\sigma^2H^2\|h_0\|^2}{m^2}(1+r).
+=\frac{\sigma^2H^2\|h_0\|^2}{M^2}(1+r).
 \tag{A12}
 $$
 
@@ -254,7 +254,7 @@ $$
 
 $$
 V_-=\alpha h_0^HP_h^\perp v,\qquad
-\alpha=\frac{H}{m}=\frac{\gamma}{1+\gamma},
+\alpha=\frac{H}{M}=\frac{\gamma}{1+\gamma},
 $$
 
 这时
@@ -275,16 +275,16 @@ $V_+$ 与 $V_-$ 不是同一个随机变量。“逐项验证 $D,V,S$ 都对”�
 利用 (A4)，(A6) 可改写为
 
 $$
-F=-d+\frac{(C+d)(t+q)}T.
+F=-d+\frac{(C+d)(t+q)}{T_{\rm h}}.
 \tag{A14}
 $$
 
-令 $m=H+N\sigma^2,\alpha=H/m$。将噪声总能量 $q$ 与 $T$ 的主导尺度用于近似，保留所需线性误差项：
+令 $M=H+N\sigma^2,\alpha=H/M$。将噪声总能量 $q$ 与 $T_{\rm h}$ 的主导尺度用于近似，保留所需线性误差项：
 
 $$
 \begin{aligned}
 F_{\mathrm{red}}
-&=C(1-\alpha)-\alpha d+\frac{Ct}{m}\\
+&=C(1-\alpha)-\alpha d+\frac{Ct}{M}\\
 &=C(1-\alpha)-\alpha u^HP_h^\perp v.
 \end{aligned}
 \tag{A15}
@@ -317,7 +317,7 @@ $$
 这条路线可以明确写出被舍弃的项。令
 
 $$
-\delta=T-m=t+t^*+q-N\sigma^2,
+\delta=T_{\rm h}-M=t+t^*+q-N\sigma^2,
 $$
 
 则有**精确余项恒等式**：
@@ -325,9 +325,9 @@ $$
 $$
 F-F_{\mathrm{red}}
 =
-\frac{dt}{m}
-+\frac{(C+d)(q-N\sigma^2)}m
--\frac{(C+d)(t+q)\delta}{mT}.
+\frac{dt}{M}
++\frac{(C+d)(q-N\sigma^2)}M
+-\frac{(C+d)(t+q)\delta}{MT_{\rm h}}.
 \tag{A18}
 $$
 
@@ -335,7 +335,7 @@ $$
 
 ### 6.2 先精确消去大项，再对两个正范数近似
 
-这里先明确基向量的构造。令 $e_1=h/\sqrt H$，即真实 victim 信道的单位方向。目标信道的整体相位不影响 INR：当 $e_1^Hu\neq0$ 时，令 $\phi=\arg(e_1^Hu)$，将 $u$ 替换为 $e^{-j\phi}u$；内积为零时不需要旋转。本小节中的 $u$ 表示相位对齐后的向量，因此 $e_1^Hu=\sqrt r$。
+这里先明确基向量的构造。令 $e_1=h/\sqrt H$，即真实 victim 信道的单位方向。第 2 节统一固定的相位约定保证 $e_1^Hu=\sqrt r$；此处不再重新定义 $u$。
 
 对于 $r<1$，定义
 
@@ -364,24 +364,24 @@ v=\zeta e_1+\xi,\qquad
 e_1^H\xi=0,\qquad x=e_2^H\xi,\qquad Q=\|\xi\|^2.
 $$
 
-其中 $\zeta\sim\mathcal{CN}(0,\sigma^2)$ 与 $\xi$ 独立，$Q/\sigma^2\sim\mathrm{Gamma}(N-1,1)$。 $x$ 是 $\xi$ 沿 $e_2$ 的复标量分量，$Q$ 是全部正交误差能量；$x$ 与 $Q$ 不独立，因为 $Q$ 包含 $|x|^2$。这里 $T=\|\widehat h\|^2$ 是估计信道总能量，下面的 $U$ 是它在目标信道方向正交补空间中的能量。
+其中 $\zeta\sim\mathcal{CN}(0,\sigma^2)$ 与 $\xi$ 独立，$Q/\sigma^2\sim\mathrm{Gamma}(N-1,1)$。 $x$ 是 $\xi$ 沿 $e_2$ 的复标量分量，$Q$ 是全部正交误差能量；$x$ 与 $Q$ 不独立，因为 $Q$ 包含 $|x|^2$。这里 $T_{\rm h}=\|\widehat h\|^2$ 是估计信道总能量，下面的 $U$ 是它在目标信道方向正交补空间中的能量。
 
 不作任何近似，将 (A6) 通分、相消，可得：
 
 $$
 F=
-\frac{\sqrt H\{\sqrt r\,Q-\sqrt{1-r}\,x(\sqrt H+\zeta)^*\}}T.
+\frac{\sqrt H\{\sqrt r\,Q-\sqrt{1-r}\,x(\sqrt H+\zeta)^*\}}{T_{\rm h}}.
 \tag{A19}
 $$
 
-令 $U=T-|u^H\widehat h|^2=\|P_u^\perp\widehat h\|^2$，精确泄漏为
+令 $U=T_{\rm h}-|u^H\widehat h|^2=\|P_u^\perp\widehat h\|^2$，精确泄漏为
 
 $$
 |\widehat w^Hh|^2
 =
 \frac{
 H\left|\sqrt r\,Q-\sqrt{1-r}\,x(\sqrt H+\zeta)^*\right|^2
-}{TU}.
+}{T_{\rm h}U}.
 \tag{A20}
 $$
 
@@ -406,7 +406,7 @@ $$
 两个分母的均值是
 
 $$
-\mathbb ET=N\sigma^2(1+\gamma),\qquad
+\mathbb ET_{\rm h}=N\sigma^2(1+\gamma),\qquad
 \mathbb EU=\sigma^2\{N-1+N\gamma(1-r)\}.
 $$
 
@@ -425,7 +425,7 @@ $$
 
 这条路线表明：**同样使用集中近似，先精确相消再近似，与在 (32) 先冻结投影内部分母，并不等价。**
 
-(A22) 仍忽略分子、$T$、$U$ 的相关性，不能宣称它在每一点都优于 (28)。它的作用是明确列出近似层次；$r=0$ 等边界中被舍弃的有限 $N$ 项甚至会成为主导项。
+(A22) 仍忽略分子、$T_{\rm h}$、$U$ 的相关性，不能宣称它在每一点都优于 (28)。它的作用是明确列出近似层次；$r=0$ 等边界中被舍弃的有限 $N$ 项甚至会成为主导项。
 
 ## 7. 正确高 SNR 平台、阵列相关性与尖峰
 
@@ -529,10 +529,10 @@ $$
 
 ### 8.1 实验定义
 
-令 $F$ 为精确 (A6)，$p=1-|u^H\widehat h|^2/T$，以及
+令 $F$ 为精确 (A6)，$p=1-|u^H\widehat h|^2/T_{\rm h}$，以及
 
 $$
-F_m=C-\frac{(u^H\widehat h)(\widehat h^Hh)}m,
+F_M=C-\frac{(u^H\widehat h)(\widehat h^Hh)}M,
 \qquad \bar p=1-\mathbb E|\widehat\rho|^2.
 $$
 
@@ -542,18 +542,18 @@ $$
 |---|---|
 | exact beamformer MC | $|F|^2/p$ |
 | 只冻结外归一化 | $|F|^2/\bar p$ |
-| 只冻结内部范数 | $|F_m|^2/p$ |
-| 两处都冻结，即 (32) | $|F_m|^2/\bar p$ |
+| 只冻结内部范数 | $|F_M|^2/p$ |
+| 两处都冻结，即 (32) | $|F_M|^2/\bar p$ |
 
 最后统一乘 $\mathcal E_t/N_0$。后三种是诊断近似，不能当成另外三个满足真实零陷约束的波束。
 
-这里 $\bar p$ 用有限 $N$ 的精确方向均值计算，避免把公式 (44) 的近似混进消融实验。具体为
+这里 $\bar p$ 用有限 $N$ 的精确方向均值计算，避免把公式 (44) 的近似混进消融实验。具体令 $L=N\gamma$，则
 
 $$
-b_N=\mathbb E\frac1{K+N}
-=\int_0^1x^{N-1}e^{-N\gamma(1-x)}\,dx
+b_N=\mathbb E\frac1{K_L+N}
+=\int_0^1\omega^{N-1}e^{-N\gamma(1-\omega)}\,d\omega
 =\frac{{}_1F_1(1;N+1;-N\gamma)}N,
-\quad K\sim\operatorname{Poisson}(N\gamma),
+\quad K_L\sim\operatorname{Poisson}(N\gamma),
 $$
 
 $$
@@ -603,11 +603,11 @@ $$
 “两处冻结”在有限 SNR 不必与 (27) 完全相等，因为 (33)–(49) 还做了二次误差替换均值、忽略 $1/N$ 等额外近似。例如，使用单位 $u$，冻结模型分子的精确二阶矩为
 
 $$
-\mathbb E|F_m|^2
+\mathbb E|F_M|^2
 =
-|C|^2\left(\frac{(N-1)\sigma^2}m\right)^2
-+\frac{\sigma^2H^2(1+r)}{m^2}
-+\frac{\sigma^4H}{m^2}.
+|C|^2\left(\frac{(N-1)\sigma^2}M\right)^2
++\frac{\sigma^2H^2(1+r)}{M^2}
++\frac{\sigma^4H}{M^2}.
 \tag{A27}
 $$
 
@@ -650,13 +650,13 @@ $$
 
 ### 9.2 两个可以无 MC 计算的有限阵列边界
 
-令 $K\sim\operatorname{Poisson}(N\gamma)$。可得到
+令 $K_L\sim\operatorname{Poisson}(N\gamma)$。可得到
 
 $$
 r=0:\quad
 \frac{\mathbb E|\widehat w^Hh|^2}{H}
 =
-\mathbb E\frac{K+1}{(K+N-1)(K+N)},
+\mathbb E\frac{K_L+1}{(K_L+N-1)(K_L+N)},
 \tag{A29}
 $$
 
@@ -664,12 +664,12 @@ $$
 r=1:\quad
 \frac{\mathbb E|\widehat w^Hh|^2}{H}
 =
-\mathbb E\frac{N-1}{K+N}.
+\mathbb E\frac{N-1}{K_L+N}.
 \tag{A30}
 $$
 
 推导要点：沿 $h$ 的带均值复高斯能量满足
-$|\sqrt H+v_1|^2/\sigma^2\mid K\sim\mathrm{Gamma}(K+1,1)$；
+$|\sqrt H+\zeta|^2/\sigma^2\mid K_L\sim\mathrm{Gamma}(K_L+1,1)$；
 其它坐标能量独立为 Gamma。对 $r=0$，取 $u=e_2$，写成两个独立 Gamma 比值期望之差；
 对 $r=1$，泄漏是 $H$ 乘正交噪声能量占总能量的比例，直接取条件均值。
 
@@ -766,7 +766,7 @@ cell 0 是另一套早期实现，存在：
 | (47) | 从保留有限 $N$ 的 $D$ 到最后一行，实际删掉了 $(1-1/N)^2$ 因子。 |
 | (48)/(49) | 交叉项应讨论 $\mathbb E[ab]$，不是 $\mathbb E[b^*a]$；对已定义的 $V_+$，最终正号正确。 |
 | (49) 分母 | 由 $V_+$ 平方得到的是 $(\mathbb E\|\widehat h\|^2)^2$，不是 $\mathbb E\|\widehat h\|^4$。后者比前者多 $N\sigma^4+2\sigma^2H$。 |
-| (54) | 切向扰动表达式需说明高 SNR 与相位对齐条件；右侧不是严格单位向量，其期望范数平方为 $1-\sigma^2/m$。 |
+| (54) | 切向扰动表达式需说明高 SNR 与相位对齐条件；右侧不是严格单位向量，其期望范数平方为 $1-\sigma^2/M$。 |
 | (56)–(58) | 与上文保持投影结构的红式近似一致，可从 (A14) 给出更明确推导及余项。 |
 | (59) | 又把 $V$ 定义成 (36) 的 $V_+$，与 (57) 的 $V_-$ 不相同，应改用不同符号，不能当作连续等价变形。 |
 | 图和章节引用 | fig:interference_mitigation、sec:nullone 的定义缺失；对应附录推导目前在源码中被注释。 |
@@ -794,7 +794,7 @@ $$
 
 ### 11.1 检测分布的因子 2
 
-在论文使用的约定 $w\sim\mathcal{CN}(0,N_0I)$ 下，每个实部/虚部的方差都是 $N_0/2$。所以
+本小节的 $T=\|r_1\|^2$ 是原正文的检测统计量，与本报告的估计信道能量 $T_{\rm h}$ 不同。在论文使用的约定 $w\sim\mathcal{CN}(0,N_0I)$ 下，每个实部/虚部的方差都是 $N_0/2$。所以
 
 $$
 \mathcal H_0:\qquad
@@ -830,13 +830,13 @@ $$
 若检测和估计复用同一段前导，则事件
 
 $$
-D=\{\|\widehat h\|^2>\tau/\mathcal E_U\}
+\mathcal D_{\rm det}=\{\|\widehat h\|^2>\tau/\mathcal E_U\}
 $$
 
 会改变估计误差的条件分布。完整系统的平均 INR 应为
 
 $$
-P_D\,\mathbb E[\mathrm{INR}_{\mathrm{null}}\mid D]
+P_D\,\mathbb E[\mathrm{INR}_{\mathrm{null}}\mid\mathcal D_{\rm det}]
 +P_{MD}\,\mathrm{INR}_{\mathrm{nonull}}.
 $$
 
@@ -877,37 +877,83 @@ $$
 
 $$
 L=N\gamma,\qquad B=L(1-r),\qquad
-\beta_d(x)=\int_0^1 t^{d-1}e^{-x(1-t)}\,dt
-=\frac{{}_1F_1(1;d+1;-x)}{d}.
+\beta_n(\kappa)=\int_0^1 \omega^{n-1}e^{-\kappa(1-\omega)}\,d\omega
+=\frac{{}_1F_1(1;n+1;-\kappa)}{n}.
 $$
 
-则对所有 $N\ge2$、$0\le r\le1$ 和 $\gamma\ge0$，有
+这里 $n\ge1$ 是整数函数下标，$\kappa\ge0$ 是函数的实参数，$\omega$ 仅为积分变量；它们不表示噪声投影 $d,t,x$ 或检测阈值 $\tau$。则对所有 $N\ge2$、$0\le r\le1$ 和 $\gamma\ge0$，有
 
 $$
 \boxed{\mathbb E[\mathrm{INR}]
 =k\left[(N-1)L\beta_N(L)-(N-2)B\beta_{N-1}(B)\right].}
 $$
 
-这是有限阵列的精确均值，不需要把任何随机分母换成均值。$\beta_d(0)=1/d$，因此零信道、平行信道以及 $N=2$ 都没有奇点。
+这是有限阵列的精确均值，不需要把任何随机分母换成均值。$\beta_n(0)=1/n$，因此零信道、平行信道以及 $N=2$ 都没有奇点。
 
-证明的关键可在目标信道方向为第一基向量的坐标中直接看出。按 $\sigma$ 归一化，令 $a=\sqrt{Lr}$、$b=\sqrt B$、$X\sim\mathcal{CN}(a,1)$、$\mathbf Y\sim\mathcal{CN}(b\mathbf e_1,I_{N-1})$ 独立，$U=\|\mathbf Y\|^2$、$T=|X|^2+U$，则逐样本恒有
+证明使用一套新的、以目标信道为第一方向的正交基 $f_1,\ldots,f_N$；第 6.2 节的 $e_1,e_2$ 保持原来含义。首先按噪声标准差 $\sigma$ 定义两个**确定性信道幅度**：
+
+$$
+\mu_\parallel=\frac{|u^Hh|}{\sigma}=\sqrt{N\gamma r},\qquad
+\mu_\perp=\frac{\|(I-uu^H)h\|}{\sigma}
+=\sqrt{N\gamma(1-r)},\qquad m=N-1.
+$$
+
+这些幅度由信道在 $u$ 及其正交补空间中的分解决定，不是任意设定。原稿公式 (48) 和本报告第 5 节的 $a,b$ 仍专指那两个复随机量。
+
+沿用第 2 节固定的相位约定，令
+
+$$
+f_1=u,\qquad f_2=\frac{h/\sigma-\mu_\parallel f_1}{\mu_\perp}
+\quad(\mu_\perp>0),\qquad
+S_\perp=[f_2,\ldots,f_N]\in\mathbb C^{N\times m}.
+$$
+
+若 $\mu_\perp=0$，任选与 $f_1$ 正交的单位向量作为 $f_2$，再补全正交基。令 $\boldsymbol\iota_m=(1,0,\ldots,0)^\top\in\mathbb R^m$，定义无量纲坐标
+
+$$
+X=f_1^H\widehat h/\sigma\sim\mathcal{CN}(\mu_\parallel,1),\qquad
+\mathbf Y=S_\perp^H\widehat h/\sigma
+\sim\mathcal{CN}(\mu_\perp\boldsymbol\iota_m,I_m).
+$$
+
+二者独立；$\boldsymbol\iota_m$ 是 $m$ 维坐标向量，不能与 $N$ 维信道方向 $e_1$ 混用。此时
+
+$$
+\widehat h/\sigma=Xf_1+S_\perp\mathbf Y,\qquad
+Y_1=\boldsymbol\iota_m^H\mathbf Y,\qquad
+U_0=\|\mathbf Y\|^2=\frac U{\sigma^2},\qquad
+T_0=|X|^2+U_0=\frac{T_{\rm h}}{\sigma^2}.
+$$
+
+因此逐样本恒有
 
 $$
 \frac{|\widehat w^Hh|^2}{\sigma^2}
-=\frac{|aU-bXY_1^*|^2}{UT}
-=a^2+\frac{b^2|Y_1|^2}{U}
--\frac{|aX+bY_1|^2}{T}.
+=\frac{|\mu_\parallel U_0-\mu_\perp XY_1^*|^2}{U_0T_0}
+=\mu_\parallel^2+\frac{\mu_\perp^2|Y_1|^2}{U_0}
+-\frac{|\mu_\parallel X+\mu_\perp Y_1|^2}{T_0}.
 $$
 
-对 $\mathbf Z\sim\mathcal{CN}(\sqrt{x}\mathbf e_1,I_d)$，非中心复高斯模平方的 Poisson–Gamma 混合给出
+为计算后面两个比值的期望，令 $d_{\rm g}\ge1$ 为通用高斯向量的维度，$\boldsymbol\iota_{d_{\rm g}}$ 为该空间的第一坐标向量。对 $\mathbf Z\sim\mathcal{CN}(\sqrt{\kappa}\boldsymbol\iota_{d_{\rm g}},I_{d_{\rm g}})$，非中心复高斯模平方的 Poisson–Gamma 混合给出
 
 $$
 \mathbb E\frac{|Z_1|^2}{\|\mathbf Z\|^2}
-=1-(d-1)\mathbb E\frac1{d+K}
-=1-(d-1)\beta_d(x),\qquad K\sim\mathrm{Poisson}(x).
+=1-(d_{\rm g}-1)\mathbb E\frac1{d_{\rm g}+K_\kappa}
+=1-(d_{\rm g}-1)\beta_{d_{\rm g}}(\kappa),\qquad
+K_\kappa\sim\mathrm{Poisson}(\kappa).
 $$
 
-当 $d=1$ 时比值直接等于 1，不需要引入形状为零的 Gamma 分布。分别对 $\mathbf Y$ 和沿完整均值方向旋转后的 $(X,\mathbf Y)$ 应用此恒等式，常数项 $a^2+B-L$ 相消，即得上面的精确结果。附录还给出非负二维积分及完整推导，可作为独立数值检验。
+这里 $d_{\rm g}$ 是整数维度，不是 $d=u^Hv$。当 $d_{\rm g}=1$ 时比值直接等于 1，不需要引入形状为零的 Gamma 分布。分别对 $\mathbf Y$ 和沿完整均值方向旋转后的 $(X,\mathbf Y)$ 应用此恒等式，常数项 $\mu_\parallel^2+B-L$ 相消，即得上面的精确结果。
+
+Appendix B 小节 C 的非负二维积分使用**另外定义的积分变量**：
+
+$$
+\ell_1,\ell_2\ge0,\qquad
+\eta=(1+\ell_1)^{-1},\qquad
+\nu=(1+\ell_1+\ell_2)^{-1},\qquad z=\nu/\eta.
+$$
+
+其中 $0<\nu\le\eta\le1$、$0<z\le1$。$\eta,\nu$ 不再占用 $p,q$。始终有 $p=U/T_{\rm h}=U_0/T_0$、$q=\|v\|^2$。
 
 ### 13.2 与公式 (28) 的区别
 
@@ -928,8 +974,39 @@ cd overleaf_ntn_paper
 latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex
 ```
 
-本次验证：已有 48 点 MC 的最大绝对偏差为 **2.7183 个标准误**；64 组独立非负二维自适应积分与精确公式的最大相对误差为 **2.20×10⁻¹²**，原单位方形上的 Gauss–Legendre 积分最大相对误差为 **3.79×10⁻⁸**。另以完整复向量直接投影运行两组各 200,000 样本，标准化偏差分别为 −0.1962、0.4002；这些 MC 偏差只作统计诊断。$N=2$、零信道、高低 SNR 和酉旋转不变性检查均通过。
+此前数值验证：已有 48 点 MC 的最大绝对偏差为 **2.7183 个标准误**；64 组独立非负二维自适应积分与精确公式的最大相对误差为 **2.20×10⁻¹²**，原单位方形上的 Gauss–Legendre 积分最大相对误差为 **3.79×10⁻⁸**。另以完整复向量直接投影运行两组各 200,000 样本，标准化偏差分别为 −0.1962、0.4002；这些 MC 偏差只作统计诊断。$N=2$、零信道、高低 SNR 和酉旋转不变性检查均通过。
 
-最终 PDF 共 10 页，Appendix B 占第 7–10 页，精确均值为第 8 页公式 (83)。原六页渲染逐像素一致，原 37 个标签定义及页码保持不变。LaTeX 编译成功；原稿已有的两处缺失引用及一处重复标签仍保留，新增附录没有未解析引用或公式溢出。
+本次记号统一后 PDF 共 11 页，Appendix B 占第 7–11 页，精确均值为第 9 页公式 (83)。原六页渲染逐像素一致，原 37 个标签定义及页码保持不变。LaTeX 编译成功；原稿已有的两处缺失引用及一处重复标签仍保留，新增附录没有未解析引用或公式溢出。
 
 论文源码在独立 Overleaf 仓库同步；本 Markdown 和数值验证在外层 GitHub 仓库同步。编译的 `build/main.pdf` 继续按现有规则忽略，可由源码重建。
+
+### 13.4 本次记号统一
+
+以下约定已同步到 Appendix B 和本报告，公式编号保持原有顺序。
+
+| 记号 | 唯一含义 |
+|---|---|
+| $p$ | 随机波束归一化因子 $u^HP_{\widehat h}^{\perp}u=U/T_{\rm h}$ |
+| $q$ | 总估计误差能量 $\|v\|^2$ |
+| $T_{\rm h},U$ | 估计信道总能量及其在 $u$ 的正交补空间中的能量 |
+| $T_0,U_0$ | 上述两种能量分别除以 $\sigma^2$ 后的无量纲量 |
+| $T,\tau$ | 原正文的检测统计量和检测阈值，仅在讨论检测时使用 |
+| $e_1,e_2$ | 第 6.2 节 / Appendix B-B 的 victim 信道坐标方向 |
+| $f_1,\ldots,f_N$ | Appendix B-C 的目标信道坐标基，$f_1=u$ |
+| $\boldsymbol\iota_m$ | $m$ 维坐标空间的第一单位向量 |
+| $\mu_\parallel,\mu_\perp$ | 沿目标方向及其正交补空间的确定性信道幅度，以 $\sigma$ 为单位 |
+| $a,b$ | 原公式 (48) 的两个复随机量，第 5 节沿用同一定义 |
+| $\ell_1,\ell_2;\eta,\nu,z$ | 二维积分的原始变量及变换变量 |
+| $\mathcal Z(\eta,\nu)$ | 高斯指数加权的归一化因子 |
+| $M=H+N\sigma^2$ | 随机能量 $T_{\rm h}$ 的期望 |
+| $m=N-1$ | 与目标方向正交的子空间维度 |
+| $d,t,x$ | 分别为 $u^Hv,h^Hv,e_2^H\xi$ 三个复噪声投影 |
+| $d_{\rm g},\kappa$ | 通用高斯矩公式的整数维度和非中心参数 |
+| $\omega,y$ | 一维积分变量，$y=\kappa(1-\omega)$ |
+| $\mathcal B_n(\kappa)=\kappa\beta_n(\kappa)$ | 数值求值用的确定性函数 |
+| $\Lambda_{\rm cut}$ | 数值积分截断上限 |
+| $K_\kappa$ | 均值为 $\kappa$ 的辅助 Poisson 随机量；$K_L$ 是 $\kappa=L=N\gamma$ 的情形 |
+
+本次另用 240 组复信道样本检查坐标重构、精确泄漏恒等式及 $F=\sigma J/T_0$，覆盖 $N=2,4,16$ 和 $r=0,0.2,0.8,1$；最大绝对差约为 $9.77\times10^{-15}$。这里 $J=\mu_\parallel U_0-\mu_\perp XY_1^*$ 是论文 (75) 的无量纲分子。
+
+此外，$u$ 的相位在第 2 节 / Appendix B-A 一次性固定，后续小节不再重新定义 $u$；$F$ 的首次定义仍在 (A3) / 论文 (62)，B-B 开始推导时又明确写出 $F=u^HP_{\widehat h}^{\perp}h$。
