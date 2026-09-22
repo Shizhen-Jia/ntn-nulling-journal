@@ -1,6 +1,6 @@
 # INR 公式 (27)/(28) 的推导审计与数值验证
 
-分析日期：2026-09-22。编号以现有 6 页 [main.pdf](../overleaf_ntn_paper/build/main.pdf) 及其 main.aux 为准。本文独立记录分析，不修改论文正文、原 notebook 或 PDF。
+分析日期：2026-09-22。原公式编号以最初 6 页 [main.pdf](../overleaf_ntn_paper/build/main.pdf) 及其 main.aux 为准。第 1–12 节是最初的独立审计；按后续要求，完整正确推导现已追加为论文 Appendix B，更新说明及精确结果见第 13 节。
 
 核对材料：[analysis.tex](../overleaf_ntn_paper/analysis.tex)、[proofs.tex](../overleaf_ntn_paper/proofs.tex)、[problem.tex](../overleaf_ntn_paper/problem.tex) 和 [verify_equations.ipynb](verify_equations.ipynb)。可复现实验位于 [inr_eq27_eq28_analysis](inr_eq27_eq28_analysis/)，下文同时给出证明、近似条件与数值证据。
 
@@ -825,7 +825,7 @@ $$
 
 不能无条件地把式 (28) 乘 $P_D$，然后声称已经计入检测选择效应。当前图及本文主推导只针对无条件误差、始终执行零陷的实验。这是模型适用范围问题，与 (32) 的分母问题分开。
 
-## 12. 后续论文修改建议与本次交付
+## 12. 初次审计的论文修改建议与交付
 
 后续若修改正文，建议按以下顺序：
 
@@ -836,7 +836,7 @@ $$
 5. 单独修正检测分布参数、符号/交叉引用及 notebook 诊断代码；这些不应伪装成此次正负号问题的根因。
 6. 用更多 MC 样本和置信区间报告红式的残余误差，而不是表述为有限阵列精确重合。
 
-本次只创建分析与独立验证文件，未改动原 main.tex、analysis.tex、proofs.tex、verify_equations.ipynb 或 build/main.pdf。
+初次审计只创建分析与独立验证文件，未改动原 main.tex、analysis.tex、proofs.tex、verify_equations.ipynb 或 build/main.pdf。后续追加附录的交付见第 13 节。
 
 复现数值实验：
 
@@ -848,3 +848,71 @@ $$
     python inr_eq27_eq28_analysis/verify_inr_approximations.py --plot-only
 
 随机模拟的 seed、样本数、每点线性均值、标准误、理论值与冻结模型解析校验值均随结果保存。独立实验不会执行或覆盖原 notebook，不会触发论文编译。
+
+
+## 13. 续接完成：Appendix B 与有限阵列精确均值
+
+完整英文证明见 [appendix_inr_correction.tex](../overleaf_ntn_paper/appendix_inr_correction.tex)，通过 `main.tex` 在原参考文献后另起一页加入 [main.pdf](../overleaf_ntn_paper/build/main.pdf)。原正文、Appendix A 和原公式编号保留，纠正内容集中在新增 Appendix B。
+
+### 13.1 精确结果
+
+在本文的固定信道、单 victim、完美目标 CSI、无条件高斯估计误差、每次执行完全零陷模型下，令
+
+$$
+L=N\gamma,\qquad B=L(1-r),\qquad
+\beta_d(x)=\int_0^1 t^{d-1}e^{-x(1-t)}\,dt
+=\frac{{}_1F_1(1;d+1;-x)}{d}.
+$$
+
+则对所有 $N\ge2$、$0\le r\le1$ 和 $\gamma\ge0$，有
+
+$$
+\boxed{\mathbb E[\mathrm{INR}]
+=k\left[(N-1)L\beta_N(L)-(N-2)B\beta_{N-1}(B)\right].}
+$$
+
+这是有限阵列的精确均值，不需要把任何随机分母换成均值。$\beta_d(0)=1/d$，因此零信道、平行信道以及 $N=2$ 都没有奇点。
+
+证明的关键可在目标信道方向为第一基向量的坐标中直接看出。按 $\sigma$ 归一化，令 $a=\sqrt{Lr}$、$b=\sqrt B$、$X\sim\mathcal{CN}(a,1)$、$\mathbf Y\sim\mathcal{CN}(b\mathbf e_1,I_{N-1})$ 独立，$U=\|\mathbf Y\|^2$、$T=|X|^2+U$，则逐样本恒有
+
+$$
+\frac{|\widehat w^Hh|^2}{\sigma^2}
+=\frac{|aU-bXY_1^*|^2}{UT}
+=a^2+\frac{b^2|Y_1|^2}{U}
+-\frac{|aX+bY_1|^2}{T}.
+$$
+
+对 $\mathbf Z\sim\mathcal{CN}(\sqrt{x}\mathbf e_1,I_d)$，非中心复高斯模平方的 Poisson–Gamma 混合给出
+
+$$
+\mathbb E\frac{|Z_1|^2}{\|\mathbf Z\|^2}
+=1-(d-1)\mathbb E\frac1{d+K}
+=1-(d-1)\beta_d(x),\qquad K\sim\mathrm{Poisson}(x).
+$$
+
+当 $d=1$ 时比值直接等于 1，不需要引入形状为零的 Gamma 分布。分别对 $\mathbf Y$ 和沿完整均值方向旋转后的 $(X,\mathbf Y)$ 应用此恒等式，常数项 $a^2+B-L$ 相消，即得上面的精确结果。附录还给出非负二维积分及完整推导，可作为独立数值检验。
+
+### 13.2 与公式 (28) 的区别
+
+附录从精确投影相消出发，依次计算分子二阶矩、写出分母均值近似、再舍弃有限 $N$ 修正，得到 (28)，并明确列出近似的余项。
+
+- 固定 $r<1$ 的高训练 SNR 极限严格为 $k$。
+- $r=1$ 的极限严格为 $k(N-1)$，而 (28) 为 $kN$。
+- $N=2$ 的精确结果与 $r$ 无关，为 $k[1-(1-e^{-2\gamma})/(2\gamma)]$。
+- $N=16$、$r=0.7789749590628197$、$\gamma=10$、$k=0.01$ 时，精确均值为 **0.0373700511261**，(28) 为 **0.0415539653**，高估约 **11.20%**。第 1 节的 11.30% 是相对于那次有限样本 MC 均值，二者参照不同。
+
+### 13.3 复现与验证
+
+[verify_exact_inr.py](inr_eq27_eq28_analysis/verify_exact_inr.py) 检查精确公式、独立二维积分、边界与渐近情形，并与已有 48 个 MC 参数点比较；数值记录保存于 [exact_results.json](inr_eq27_eq28_analysis/exact_results.json)。
+
+```bash
+python "Single user/inr_eq27_eq28_analysis/verify_exact_inr.py"
+cd overleaf_ntn_paper
+latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=build main.tex
+```
+
+本次验证：已有 48 点 MC 的最大绝对偏差为 **2.7183 个标准误**；64 组独立非负二维自适应积分与精确公式的最大相对误差为 **2.20×10⁻¹²**，原单位方形上的 Gauss–Legendre 积分最大相对误差为 **3.79×10⁻⁸**。另以完整复向量直接投影运行两组各 200,000 样本，标准化偏差分别为 −0.1962、0.4002；这些 MC 偏差只作统计诊断。$N=2$、零信道、高低 SNR 和酉旋转不变性检查均通过。
+
+最终 PDF 共 10 页，Appendix B 占第 7–10 页，精确均值为第 8 页公式 (83)。原六页渲染逐像素一致，原 37 个标签定义及页码保持不变。LaTeX 编译成功；原稿已有的两处缺失引用及一处重复标签仍保留，新增附录没有未解析引用或公式溢出。
+
+论文源码在独立 Overleaf 仓库同步；本 Markdown 和数值验证在外层 GitHub 仓库同步。编译的 `build/main.pdf` 继续按现有规则忽略，可由源码重建。
