@@ -51,46 +51,92 @@ This repository contains simulation tools and notebooks for evaluating interfere
 - Nulling vectors are computed using SVD-based techniques.
 - Visualizations require matplotlib and ray-tracing output from the Sionna simulator.
 
-## 🔧 Requirements
+## 🔧 Sionna 2.2 environment
 
-- Python ≥ 3.8
-- [Sionna RT](https://nvlabs.github.io/sionna/)
-- NumPy, Matplotlib, Jupyter
+The local Conda environment `sionna22` is an independent copy of `sionna20`,
+with Sionna and its required dependencies upgraded. Activate it with:
 
+```bash
+conda activate sionna22
 ```
-python -m venv sionna_env
-source sionna_env/bin/activate
-pip install --upgrade pip tensorflow tqdm numpy matplotlib importlib_metadata sionna sionna-rt
-```  
 
-## 🔁 Replace Sionna `radio_map.py`
+In Jupyter or VS Code, select **Python (sionna22)** and restart the kernel
+when switching environments.
 
-This project uses a customized version of Sionna's `radio_map.py`.
-After installing Sionna, replace the original file in the Sionna source tree:
+| Component | Version selected for `sionna22` |
+|---|---|
+| Python | 3.11.15 |
+| Sionna / Sionna RT | 2.2.0 / 2.2.0 |
+| PyTorch | 2.14.1+cu130 |
+| Mitsuba / Dr.Jit | 3.9.1 / 1.5.0 |
 
-- Replace `sionna/rt/radio_map.py`
-- With this repository's `radio_map.py`
+Sionna 2.2 requires Python >=3.11 and PyTorch >=2.9.1. Python 3.13/3.14
+have official wheels for the selected PyTorch, Mitsuba and Dr.Jit versions,
+but changing the Python minor version requires reinstalling the original
+environment's binary extensions. Python 3.11.15 is retained to preserve the
+complete existing toolset. PyTorch 2.14.1 uses CUDA 13.0; the local RTX 5080
+Laptop GPU and driver 595.84 support the tested configuration. A newer Python
+version alone is not evidence of faster ray tracing.
 
-The modified `radio_map.py` adds the `inr_ntn` metric for NTN interference analysis.
-Unlike the default `sinr`, `inr_ntn` treats the total received power from all base stations as interference and computes:
+Sources: [Sionna requirements](https://github.com/NVlabs/sionna/blob/v2.2.0/pyproject.toml),
+[RT requirements](https://github.com/NVlabs/sionna-rt/blob/v2.2.0/pyproject.toml),
+[PyTorch 2.14.1](https://pypi.org/project/torch/2.14.1/).
+
+To reproduce the environment under a new, unused name, clone the original
+environment first, then upgrade the selected packages:
+
+```bash
+conda create -n sionna22 --clone sionna20 --copy -y
+conda activate sionna22
+python -m pip install 'sionna==2.2.0' 'sionna-rt==2.2.0' 'torch==2.14.1'
+python scripts/patch_sionna22_inr.py
+python -m ipykernel install --user --name sionna22 --display-name 'Python (sionna22)'
+python -m pip check
+```
+
+## 🔁 Preserve the custom INR metric
+
+The original `radio_map.py` is kept as a record of the project's earlier
+customization. **Do not copy that entire file over Sionna 2.2.** It would
+replace newer upstream fixes and uses an older internal layout.
+
+Instead, `scripts/patch_sionna22_inr.py` adds the custom metric to the official
+2.2.0 files in `sionna/rt/radio_map_solvers/`. It verifies upstream checksums,
+backs up each original file as `*.py.pre-ntn-inr`, and refuses to overwrite
+unrecognized edits or a different Sionna RT version. Applying it again is safe.
+
+The original formula is preserved:
 
 ```python
-inr_ntn = interference / noise
+# All terrestrial base stations contribute interference at the NTN receiver.
+# Linear, unitless output with shape [1, ...].
+inr_ntn = sum(received_power_from_each_base_station) / thermal_noise_power
+
+values = rm.inr_ntn.numpy()          # rm.inr is an alias
+rm.show(metric="inr_ntn")           # planar maps, displayed in dB
+rm.cdf(metric="inr_ntn")
+scene.preview(radio_map=rm, rm_metric="inr_ntn")
+# scene.render(..., radio_map=rm, rm_metric="inr_ntn") also works.
 ```
 
-This metric can be used in radio map related evaluation and visualization workflows that accept `metric`, together with `path_gain`, `rss`, and `sinr`.
+Both `"inr_ntn"` and `"inr"` work as metric names. INR is a sum across all
+transmitters, so selecting a valid `tx` for display still returns that same
+aggregate map. INR has no serving-transmitter association: use `"rss"` for
+strongest-source association, or `tx_association=False` when sampling cells
+using INR thresholds. INR uses `10*log10(INR)` in dB, without the RSS-to-dBm offset.
 
-If you are using a virtual environment, the Sionna file is typically located at:
+After reinstalling Sionna RT 2.2.0, reapply and verify the patch, then restart
+the notebook kernel:
 
 ```bash
-<your_venv>/lib/python3.x/site-packages/sionna/rt/radio_map.py
+python scripts/patch_sionna22_inr.py
+python scripts/patch_sionna22_inr.py --check
+MPLBACKEND=Agg python -m unittest discover -s tests -p test_sionna22_inr.py -v
 ```
 
-You can also locate it with:
-
-```bash
-python -c "import sionna, pathlib; print(pathlib.Path(sionna.__file__).resolve().parent / 'rt' / 'radio_map.py')"
-```
-
----
+The tests cover the aggregate formula, planar/mesh shapes, aliases, dB plots,
+CDF edge cases, cell sampling, scene rendering/preview, PyTorch CUDA operations,
+and a small GPU path/radio-map simulation. They do not run the full research
+notebooks. Local package snapshots, original sources, and validation output
+are stored in `.local/sionna22-migration/` (excluded from Git).
 

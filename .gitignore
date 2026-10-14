@@ -19,3 +19,6 @@ ResultPlot/
 
 # Independent Overleaf repository
 /overleaf_ntn_paper/
+
+# Local environment snapshots and validation output
+/.local/
