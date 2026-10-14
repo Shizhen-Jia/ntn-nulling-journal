@@ -1,0 +1,1020 @@
+{
+  "description": "Center site plus six first-ring sites, three hexagonal cells per site",
+  "scenario": "RMa",
+  "isd_m": 7500.0,
+  "cell_radius_m": 2500.0,
+  "coordinate_system": "Local ENU; X east, Y north, Z up; coordinates in metres",
+  "azimuth_convention": "Counterclockwise from +X (east), in degrees",
+  "site_symbol": "Triangle vertices point along sector panel azimuths; symbol size is illustrative",
+  "orientation_scope": "Horizontal boresight projection only; downtilt and electrical steering are separate",
+  "reference_documents": [
+    "38863-j40.docx",
+    "38901-j30.docx"
+  ],
+  "georeferenced": false,
+  "number_of_sites": 7,
+  "number_of_cells": 21,
+  "margin_each_side_m": 0.0,
+  "dimension_rounding_m": 10.0,
+  "rectangle_mode": "tight",
+  "tight_rectangle": {
+    "center_xy_m": [
+      -625.0,
+      0.0
+    ],
+    "size_xy_m": [
+      23750.0,
+      21650.635094610967
+    ],
+    "min_xy_m": [
+      -12500.0,
+      -10825.317547305483
+    ],
+    "max_xy_m": [
+      11250.0,
+      10825.317547305483
+    ]
+  },
+  "site_centered_rectangle": {
+    "center_xy_m": [
+      0.0,
+      0.0
+    ],
+    "size_xy_m": [
+      25000.0,
+      21650.635094610967
+    ],
+    "min_xy_m": [
+      -12500.0,
+      -10825.317547305483
+    ],
+    "max_xy_m": [
+      12500.0,
+      10825.317547305483
+    ]
+  },
+  "blender_land": {
+    "center_xy_m": [
+      -625.0,
+      0.0
+    ],
+    "size_xy_m": [
+      23750.0,
+      21660.0
+    ],
+    "min_xy_m": [
+      -12500.0,
+      -10830.0
+    ],
+    "max_xy_m": [
+      11250.0,
+      10830.0
+    ]
+  },
+  "translation_original_to_land_centered_xy_m": [
+    625.0,
+    -0.0
+  ],
+  "sites": [
+    {
+      "site_id": 1,
+      "east_m": 0.0,
+      "north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": 625.0,
+      "land_centered_y_m": 0.0
+    },
+    {
+      "site_id": 2,
+      "east_m": 7500.0,
+      "north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": 8125.0,
+      "land_centered_y_m": 0.0
+    },
+    {
+      "site_id": 3,
+      "east_m": 3750.0,
+      "north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": 4375.0,
+      "land_centered_y_m": -6495.190528383289
+    },
+    {
+      "site_id": 4,
+      "east_m": -3750.0,
+      "north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": -3125.0,
+      "land_centered_y_m": -6495.190528383289
+    },
+    {
+      "site_id": 5,
+      "east_m": -7500.0,
+      "north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": -6875.0,
+      "land_centered_y_m": 0.0
+    },
+    {
+      "site_id": 6,
+      "east_m": -3750.0,
+      "north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": -3125.0,
+      "land_centered_y_m": 6495.190528383289
+    },
+    {
+      "site_id": 7,
+      "east_m": 3750.0,
+      "north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "land_centered_x_m": 4375.0,
+      "land_centered_y_m": 6495.190528383289
+    }
+  ],
+  "cells": [
+    {
+      "sector_id": 1,
+      "site_id": 1,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": 0.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 1250.0000000000002,
+      "cell_center_north_m": 2165.0635094610966,
+      "bs_land_centered_x_m": 625.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          3750.0,
+          2165.0635094610966
+        ],
+        [
+          2500.0000000000005,
+          4330.127018922193
+        ],
+        [
+          6.821210263296962e-13,
+          4330.127018922193
+        ],
+        [
+          -1249.9999999999998,
+          2165.063509461097
+        ],
+        [
+          -9.094947017729282e-13,
+          4.547473508864641e-13
+        ],
+        [
+          2500.0000000000005,
+          0.0
+        ]
+      ]
+    },
+    {
+      "sector_id": 2,
+      "site_id": 1,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": 0.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -2500.0,
+      "cell_center_north_m": 3.061616997868383e-13,
+      "bs_land_centered_x_m": 625.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          0.0,
+          3.061616997868383e-13
+        ],
+        [
+          -1249.9999999999998,
+          2165.063509461097
+        ],
+        [
+          -3749.9999999999995,
+          2165.063509461097
+        ],
+        [
+          -5000.0,
+          6.123233995736766e-13
+        ],
+        [
+          -3750.000000000001,
+          -2165.0635094610957
+        ],
+        [
+          -1249.9999999999998,
+          -2165.063509461096
+        ]
+      ]
+    },
+    {
+      "sector_id": 3,
+      "site_id": 1,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": 0.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 1250.0000000000002,
+      "cell_center_north_m": -2165.0635094610966,
+      "bs_land_centered_x_m": 625.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          3750.0,
+          -2165.0635094610966
+        ],
+        [
+          2500.0000000000005,
+          0.0
+        ],
+        [
+          6.821210263296962e-13,
+          0.0
+        ],
+        [
+          -1249.9999999999998,
+          -2165.063509461096
+        ],
+        [
+          -9.094947017729282e-13,
+          -4330.127018922192
+        ],
+        [
+          2500.0000000000005,
+          -4330.127018922193
+        ]
+      ]
+    },
+    {
+      "sector_id": 4,
+      "site_id": 2,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": 7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 8750.0,
+      "cell_center_north_m": 2165.0635094610966,
+      "bs_land_centered_x_m": 8125.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          11250.0,
+          2165.0635094610966
+        ],
+        [
+          10000.0,
+          4330.127018922193
+        ],
+        [
+          7500.0,
+          4330.127018922193
+        ],
+        [
+          6250.0,
+          2165.063509461097
+        ],
+        [
+          7499.999999999999,
+          4.547473508864641e-13
+        ],
+        [
+          10000.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "sector_id": 5,
+      "site_id": 2,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": 7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 5000.0,
+      "cell_center_north_m": 3.061616997868383e-13,
+      "bs_land_centered_x_m": 8125.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          7500.0,
+          3.061616997868383e-13
+        ],
+        [
+          6250.0,
+          2165.063509461097
+        ],
+        [
+          3750.0000000000005,
+          2165.063509461097
+        ],
+        [
+          2500.0,
+          6.123233995736766e-13
+        ],
+        [
+          3749.999999999999,
+          -2165.0635094610957
+        ],
+        [
+          6250.0,
+          -2165.063509461096
+        ]
+      ]
+    },
+    {
+      "sector_id": 6,
+      "site_id": 2,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": 7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 8750.0,
+      "cell_center_north_m": -2165.0635094610966,
+      "bs_land_centered_x_m": 8125.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          11250.0,
+          -2165.0635094610966
+        ],
+        [
+          10000.0,
+          0.0
+        ],
+        [
+          7500.0,
+          0.0
+        ],
+        [
+          6250.0,
+          -2165.063509461096
+        ],
+        [
+          7499.999999999999,
+          -4330.127018922192
+        ],
+        [
+          10000.0,
+          -4330.127018922193
+        ]
+      ]
+    },
+    {
+      "sector_id": 7,
+      "site_id": 3,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": 3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 5000.0,
+      "cell_center_north_m": -4330.127018922192,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          7500.0,
+          -4330.127018922192
+        ],
+        [
+          6250.0,
+          -2165.0635094610957
+        ],
+        [
+          3750.0000000000005,
+          -2165.0635094610957
+        ],
+        [
+          2500.0,
+          -4330.127018922192
+        ],
+        [
+          3749.999999999999,
+          -6495.190528383288
+        ],
+        [
+          6250.0,
+          -6495.190528383289
+        ]
+      ]
+    },
+    {
+      "sector_id": 8,
+      "site_id": 3,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": 3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 1250.0,
+      "cell_center_north_m": -6495.190528383289,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          3750.0,
+          -6495.190528383289
+        ],
+        [
+          2500.0,
+          -4330.127018922192
+        ],
+        [
+          4.547473508864641e-13,
+          -4330.127018922192
+        ],
+        [
+          -1250.0,
+          -6495.190528383289
+        ],
+        [
+          -1.1368683772161603e-12,
+          -8660.254037844385
+        ],
+        [
+          2500.0,
+          -8660.254037844386
+        ]
+      ]
+    },
+    {
+      "sector_id": 9,
+      "site_id": 3,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": 3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 5000.0,
+      "cell_center_north_m": -8660.254037844386,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          7500.0,
+          -8660.254037844386
+        ],
+        [
+          6250.0,
+          -6495.190528383289
+        ],
+        [
+          3750.0000000000005,
+          -6495.190528383289
+        ],
+        [
+          2500.0,
+          -8660.254037844386
+        ],
+        [
+          3749.999999999999,
+          -10825.317547305483
+        ],
+        [
+          6250.0,
+          -10825.317547305483
+        ]
+      ]
+    },
+    {
+      "sector_id": 10,
+      "site_id": 4,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": -3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -2500.0,
+      "cell_center_north_m": -4330.127018922192,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          0.0,
+          -4330.127018922192
+        ],
+        [
+          -1249.9999999999998,
+          -2165.0635094610957
+        ],
+        [
+          -3749.9999999999995,
+          -2165.0635094610957
+        ],
+        [
+          -5000.0,
+          -4330.127018922192
+        ],
+        [
+          -3750.000000000001,
+          -6495.190528383288
+        ],
+        [
+          -1249.9999999999998,
+          -6495.190528383289
+        ]
+      ]
+    },
+    {
+      "sector_id": 11,
+      "site_id": 4,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": -3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -6250.0,
+      "cell_center_north_m": -6495.190528383289,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          -3750.0,
+          -6495.190528383289
+        ],
+        [
+          -5000.0,
+          -4330.127018922192
+        ],
+        [
+          -7500.0,
+          -4330.127018922192
+        ],
+        [
+          -8750.0,
+          -6495.190528383289
+        ],
+        [
+          -7500.000000000001,
+          -8660.254037844385
+        ],
+        [
+          -5000.0,
+          -8660.254037844386
+        ]
+      ]
+    },
+    {
+      "sector_id": 12,
+      "site_id": 4,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": -3750.0,
+      "bs_north_m": -6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -2500.0,
+      "cell_center_north_m": -8660.254037844386,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": -6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          0.0,
+          -8660.254037844386
+        ],
+        [
+          -1249.9999999999998,
+          -6495.190528383289
+        ],
+        [
+          -3749.9999999999995,
+          -6495.190528383289
+        ],
+        [
+          -5000.0,
+          -8660.254037844386
+        ],
+        [
+          -3750.000000000001,
+          -10825.317547305483
+        ],
+        [
+          -1249.9999999999998,
+          -10825.317547305483
+        ]
+      ]
+    },
+    {
+      "sector_id": 13,
+      "site_id": 5,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": -7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -6250.0,
+      "cell_center_north_m": 2165.0635094610966,
+      "bs_land_centered_x_m": -6875.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          -3750.0,
+          2165.0635094610966
+        ],
+        [
+          -5000.0,
+          4330.127018922193
+        ],
+        [
+          -7500.0,
+          4330.127018922193
+        ],
+        [
+          -8750.0,
+          2165.063509461097
+        ],
+        [
+          -7500.000000000001,
+          4.547473508864641e-13
+        ],
+        [
+          -5000.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "sector_id": 14,
+      "site_id": 5,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": -7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -10000.0,
+      "cell_center_north_m": 3.061616997868383e-13,
+      "bs_land_centered_x_m": -6875.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          -7500.0,
+          3.061616997868383e-13
+        ],
+        [
+          -8750.0,
+          2165.063509461097
+        ],
+        [
+          -11250.0,
+          2165.063509461097
+        ],
+        [
+          -12500.0,
+          6.123233995736766e-13
+        ],
+        [
+          -11250.000000000002,
+          -2165.0635094610957
+        ],
+        [
+          -8750.0,
+          -2165.063509461096
+        ]
+      ]
+    },
+    {
+      "sector_id": 15,
+      "site_id": 5,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": -7500.0,
+      "bs_north_m": 0.0,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -6250.0,
+      "cell_center_north_m": -2165.0635094610966,
+      "bs_land_centered_x_m": -6875.0,
+      "bs_land_centered_y_m": 0.0,
+      "vertices_enu_xy_m": [
+        [
+          -3750.0,
+          -2165.0635094610966
+        ],
+        [
+          -5000.0,
+          0.0
+        ],
+        [
+          -7500.0,
+          0.0
+        ],
+        [
+          -8750.0,
+          -2165.063509461096
+        ],
+        [
+          -7500.000000000001,
+          -4330.127018922192
+        ],
+        [
+          -5000.0,
+          -4330.127018922193
+        ]
+      ]
+    },
+    {
+      "sector_id": 16,
+      "site_id": 6,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": -3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -2500.0,
+      "cell_center_north_m": 8660.254037844386,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          0.0,
+          8660.254037844386
+        ],
+        [
+          -1249.9999999999998,
+          10825.317547305483
+        ],
+        [
+          -3749.9999999999995,
+          10825.317547305483
+        ],
+        [
+          -5000.0,
+          8660.254037844386
+        ],
+        [
+          -3750.000000000001,
+          6495.19052838329
+        ],
+        [
+          -1249.9999999999998,
+          6495.190528383289
+        ]
+      ]
+    },
+    {
+      "sector_id": 17,
+      "site_id": 6,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": -3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -6250.0,
+      "cell_center_north_m": 6495.190528383289,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          -3750.0,
+          6495.190528383289
+        ],
+        [
+          -5000.0,
+          8660.254037844386
+        ],
+        [
+          -7500.0,
+          8660.254037844386
+        ],
+        [
+          -8750.0,
+          6495.190528383289
+        ],
+        [
+          -7500.000000000001,
+          4330.127018922193
+        ],
+        [
+          -5000.0,
+          4330.127018922192
+        ]
+      ]
+    },
+    {
+      "sector_id": 18,
+      "site_id": 6,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": -3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": -2500.0,
+      "cell_center_north_m": 4330.127018922192,
+      "bs_land_centered_x_m": -3125.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          0.0,
+          4330.127018922192
+        ],
+        [
+          -1249.9999999999998,
+          6495.190528383289
+        ],
+        [
+          -3749.9999999999995,
+          6495.190528383289
+        ],
+        [
+          -5000.0,
+          4330.127018922192
+        ],
+        [
+          -3750.000000000001,
+          2165.063509461096
+        ],
+        [
+          -1249.9999999999998,
+          2165.0635094610957
+        ]
+      ]
+    },
+    {
+      "sector_id": 19,
+      "site_id": 7,
+      "sector_at_site": 1,
+      "azimuth_from_east_ccw_deg": 60.0,
+      "bearing_from_north_cw_deg": 30.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": 0.8660254037844386,
+      "bs_east_m": 3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 5000.0,
+      "cell_center_north_m": 8660.254037844386,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          7500.0,
+          8660.254037844386
+        ],
+        [
+          6250.0,
+          10825.317547305483
+        ],
+        [
+          3750.0000000000005,
+          10825.317547305483
+        ],
+        [
+          2500.0,
+          8660.254037844386
+        ],
+        [
+          3749.999999999999,
+          6495.19052838329
+        ],
+        [
+          6250.0,
+          6495.190528383289
+        ]
+      ]
+    },
+    {
+      "sector_id": 20,
+      "site_id": 7,
+      "sector_at_site": 2,
+      "azimuth_from_east_ccw_deg": 180.0,
+      "bearing_from_north_cw_deg": 270.0,
+      "horizontal_boresight_east_unit": -1.0,
+      "horizontal_boresight_north_unit": 1.2246467991473532e-16,
+      "bs_east_m": 3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 1250.0,
+      "cell_center_north_m": 6495.190528383289,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          3750.0,
+          6495.190528383289
+        ],
+        [
+          2500.0,
+          8660.254037844386
+        ],
+        [
+          4.547473508864641e-13,
+          8660.254037844386
+        ],
+        [
+          -1250.0,
+          6495.190528383289
+        ],
+        [
+          -1.1368683772161603e-12,
+          4330.127018922193
+        ],
+        [
+          2500.0,
+          4330.127018922192
+        ]
+      ]
+    },
+    {
+      "sector_id": 21,
+      "site_id": 7,
+      "sector_at_site": 3,
+      "azimuth_from_east_ccw_deg": 300.0,
+      "bearing_from_north_cw_deg": 150.0,
+      "horizontal_boresight_east_unit": 0.5000000000000001,
+      "horizontal_boresight_north_unit": -0.8660254037844386,
+      "bs_east_m": 3750.0,
+      "bs_north_m": 6495.190528383289,
+      "bs_height_above_ground_m": 30.0,
+      "cell_center_east_m": 5000.0,
+      "cell_center_north_m": 4330.127018922192,
+      "bs_land_centered_x_m": 4375.0,
+      "bs_land_centered_y_m": 6495.190528383289,
+      "vertices_enu_xy_m": [
+        [
+          7500.0,
+          4330.127018922192
+        ],
+        [
+          6250.0,
+          6495.190528383289
+        ],
+        [
+          3750.0000000000005,
+          6495.190528383289
+        ],
+        [
+          2500.0,
+          4330.127018922192
+        ],
+        [
+          3749.999999999999,
+          2165.063509461096
+        ],
+        [
+          6250.0,
+          2165.0635094610957
+        ]
+      ]
+    }
+  ]
+}
